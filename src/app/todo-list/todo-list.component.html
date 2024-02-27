@@ -1,0 +1,41 @@
+<nz-card class="card" nzTitle="Todo List" [nzActions]="[actionAdd]">
+    <ul nz-list [nzDataSource]="tasks" nzBordered nzSize="large">
+        @for (task of tasks; track task.desc) {
+            <li nz-list-item>
+                <ul nz-list-item-actions>
+                    @if (task.completed) {
+                        <nz-list-item-action>
+                            <button nz-button nzDanger nzType="default" nzShape="circle" (click)="borrar()"><span nz-icon nzType="delete" nzTheme="outline"></span></button>
+                        </nz-list-item-action>
+                    } @else {
+                        <nz-list-item-action>
+                            <button nz-button nzType="default" nzShape="circle" (click)="edit()"><span nz-icon nzType="edit" nzTheme="outline"></span></button>
+                        </nz-list-item-action>
+                        <nz-list-item-action>
+                            <button nz-button nzDanger nzType="default" nzShape="circle" (click)="borrar()"><span nz-icon nzType="delete" nzTheme="outline"></span></button>
+                        </nz-list-item-action>
+                    }
+                </ul>
+                @if (task.completed) {
+                    <label class="completed">{{ task.desc }}</label>
+                } @else {
+                    <label class="no-completed">{{ task.desc }}</label>
+                }
+            </li>
+        }
+    </ul>
+</nz-card>
+<ng-template #actionAdd>
+    <form nz-form [nzLayout]="'inline'" class="form" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-control>
+            <input nz-input name="new-task" type="text" id="new-task" placeholder="New Task" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary">Add</button>
+            </nz-form-control>
+          </nz-form-item>
+      </form>
+</ng-template>

@@ -1,0 +1,19 @@
+.completed {
+    text-decoration: line-through;
+    color: #BBBBBB;
+}
+
+.no-completed {
+    color: #000;
+}
+
+.card {
+    width: 300px;
+    border-radius: 1rem;
+}
+
+.form {
+    flex: auto;
+    align-items: center;
+    justify-content: center;
+}
