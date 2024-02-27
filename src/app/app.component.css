@@ -23,6 +23,9 @@
     background: #fff;
     padding: 60px;
     min-height: 280px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
   }
 
   nz-header h1 {
