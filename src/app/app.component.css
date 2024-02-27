@@ -1,0 +1,30 @@
+
+
+  [nz-menu] {
+    line-height: 64px;
+  }
+
+  .container {
+    flex: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+  nz-content {
+    text-align: center;
+    padding: 0 50px;
+  }
+
+  nz-footer {
+    text-align: center;
+  }
+
+  .inner-content {
+    background: #fff;
+    padding: 60px;
+    min-height: 280px;
+  }
+
+  nz-header h1 {
+    color: #fff;
+  }

@@ -1,10 +1,12 @@
 .completed {
     text-decoration: line-through;
     color: #BBBBBB;
+    cursor: pointer;
 }
 
 .no-completed {
     color: #000;
+    cursor: pointer;
 }
 
 .card {
@@ -16,4 +18,9 @@
     flex: auto;
     align-items: center;
     justify-content: center;
+}
+
+.container {
+    justify-content: center;
+    align-items: center;
 }

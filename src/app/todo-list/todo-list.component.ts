@@ -6,7 +6,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -19,24 +19,21 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@ang
     NzButtonModule,
     NzCheckboxModule,
     NzFormModule,
+    ReactiveFormsModule
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
 })
 export class TodoListComponent {
-  tasks = [
-    {
-      desc: "Ser bonita",
-      completed: true
-    },
-    {
-      desc: "Hacer top 5 Netflix",
-      completed: false
-    }
-  ]
+  tasks: { id:number, desc: string, completed: boolean}[] = []
 
-  borrar() {
-    alert("Borrar")
+  borrar(taskID: number) {
+    this.tasks = this.tasks.filter(t => t.id !== taskID);
+  }
+
+  completeTask(taskID: number){
+    const currentTaskIndex = this.tasks.findIndex(t => t.id === taskID);
+    this.tasks[currentTaskIndex].completed = !this.tasks[currentTaskIndex].completed;
   }
 
   edit() {
@@ -44,17 +41,23 @@ export class TodoListComponent {
   }
 
   validateForm: FormGroup<{
-    userName: FormControl<string>;
-    password: FormControl<string>;
-    remember: FormControl<boolean>;
+    newTask: FormControl<string>;
+
   }> = this.fb.group({
-    userName: ['', [Validators.required]],
-    password: ['', [Validators.required]],
-    remember: [true]
+    newTask: ['', [Validators.required]],
   });
 
   submitForm(): void {
-    console.log('submit', this.validateForm.value);
+    if(this.validateForm.value.newTask !== ''){
+      const lastId = this.tasks.length !== 0 ? this.tasks[this.tasks.length -1].id : 0;
+      const newTaskObj = {
+        id: lastId + 1,
+        desc: this.validateForm.value.newTask || 'New Task',
+        completed: false 
+      }
+      this.tasks.push(newTaskObj);
+      console.log(this.tasks)
+    }
   }
 
   constructor(private fb: NonNullableFormBuilder) {}
